@@ -7,16 +7,16 @@ param
     [string]$RegistrationInfoToken,
 
     [Parameter(mandatory = $false)]
-    [switch]$EnableVerboseMsiLogging
+    [switch]$EnableVerboseMsiLogging,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinDomain
+    [switch]$DomainJoinDomain,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinUser
+    [switch]$DomainJoinUser,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinPassword
+    [switch]$DomainJoinPassword,
 
     [Parameter(mandatory = $true)]
     [switch]$OUPath
