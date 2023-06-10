@@ -37,5 +37,5 @@ Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_
 
 # Add computer to domain
 $DomainJoinCredential = New-object –TypeName System.Management.Automation.PSCredential -ArgumentList ("$($DomainJoinDomain)\$($DomainJoinUser)", ($DomainJoinPassword | ConvertTo-SecureString –asPlainText –Force)) 
-Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Force
+Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Reboot -Force
  
