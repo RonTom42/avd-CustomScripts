@@ -24,7 +24,7 @@ param
 
 # Set startupType of Azure Connected Machine agent to auto (not auto delyed start)
 # for faster update in AzureRM
-sc.exe config himds start= auto
+# sc.exe config himds start= auto
 
 # Download and unzip Microsoft's dsc zip
 $dsc_dir = (Get-Item .).FullName
@@ -36,6 +36,6 @@ Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_
 & $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$EnableVerboseMsiLogging 
 
 # Add computer to domain
-$DomainJoinCredential = New-object –TypeName System.Management.Automation.PSCredential -ArgumentList ("$($DomainJoinDomain)\$($DomainJoinUser)", ($DomainJoinPassword | ConvertTo-SecureString –asPlainText –Force)) 
-Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Reboot -Force
+# $DomainJoinCredential = New-object –TypeName System.Management.Automation.PSCredential -ArgumentList ("$($DomainJoinDomain)\$($DomainJoinUser)", ($DomainJoinPassword | ConvertTo-SecureString –asPlainText –Force)) 
+# Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Reboot -Force
  
