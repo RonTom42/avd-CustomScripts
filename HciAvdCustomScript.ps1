@@ -10,16 +10,16 @@ param
     [switch]$EnableVerboseMsiLogging,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinDomain,
+    [string]$DomainJoinDomain,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinUser,
+    [string]$DomainJoinUser,
 
     [Parameter(mandatory = $true)]
-    [switch]$DomainJoinPassword,
+    [string]$DomainJoinPassword,
 
     [Parameter(mandatory = $true)]
-    [switch]$OUPath
+    [string]$OUPath
 )
 
 # Set startupType of Azure Connected Machine agent to auto (not auto delyed start)
