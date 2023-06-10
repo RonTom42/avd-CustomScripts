@@ -24,7 +24,7 @@ param
 
 # Set startupType of Azure Connected Machine agent to auto (not auto delyed start)
 # for faster update in AzureRM
-# sc.exe config himds start= auto
+sc.exe config himds start= auto
 
 # Download and unzip Microsoft's dsc zip
 $dsc_dir = (Get-Item .).FullName
