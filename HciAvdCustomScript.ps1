@@ -36,6 +36,8 @@ Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_
 & $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$EnableVerboseMsiLogging 
 
 # Add computer to domain
-$DomainJoinCredential = New-object –TypeName System.Management.Automation.PSCredential -ArgumentList ("$($DomainJoinDomain)\$($DomainJoinUser)", ($DomainJoinPassword | ConvertTo-SecureString –asPlainText –Force)) 
+$JoinUser = "$($DomainJoinDomain)\$($DomainJoinUser)"
+$SecurePassword = $DomainJoinPassword | ConvertTo-SecureString -asPlainText -Force
+$DomainJoinCredential = New-object -TypeName System.Management.Automation.PSCredential -ArgumentList ($JoinUser, $SecurePassword) 
 Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Reboot -Force
  
