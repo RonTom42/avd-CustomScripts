@@ -33,7 +33,7 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Azure/RDS-Templates/ma
 Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_dir
 
 # Install RDS Agent and register
-& $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$EnableVerboseMsiLogging 
+& $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$true #$EnableVerboseMsiLogging 
 
 # Add computer to domain
 # $JoinUser = "$($DomainJoinDomain)\$($DomainJoinUser)"
