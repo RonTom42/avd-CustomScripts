@@ -38,7 +38,7 @@ write-output "Installing RDS agent..."
 & $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$true #$EnableVerboseMsiLogging 
 Stop-Transcript
 Get-Content $dsc_dir/transcript.log
-Remove-Item $dsc_dir/transcript.log -Confirm:$false
+# Remove-Item $dsc_dir/transcript.log -Confirm:$false
 sleep 45
 Get-EventLog -LogName Application -Source RDAgentBootLoader,WVD-Agent | select TimeGenerated, EntryType, Message | ft -Wrap
 
