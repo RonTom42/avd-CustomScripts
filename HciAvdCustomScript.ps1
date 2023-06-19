@@ -26,9 +26,12 @@ param
 # for faster update in AzureRM
 sc.exe config himds start= auto
 
+# Disable and stop Windows Update Service
+sc.exe config wuauserv start=disabled
+sc.exe stop wuauserv
+
 # Download and unzip Microsoft's dsc zip
 $dsc_dir = (Get-Item .).FullName
-Start-Transcript $dsc_dir/transcript.log
 # $dsc_ps_path = [IO.Path]::Combine($dsc_dir, 'Configuration.ps1')
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Azure/RDS-Templates/master/ARM-wvd-templates/DSC/Configuration.zip' -outfile $dsc_dir\Configuration.zip -UseBasicParsing
 Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_dir
@@ -36,11 +39,7 @@ Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_
 # Install RDS Agent and register
 write-output "Installing RDS agent..."
 & $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$true #$EnableVerboseMsiLogging 
-Stop-Transcript
-Get-Content $dsc_dir/transcript.log
 # Remove-Item $dsc_dir/transcript.log -Confirm:$false
-sleep 45
-Get-EventLog -LogName Application -Source RDAgentBootLoader,WVD-Agent | select TimeGenerated, EntryType, Message | ft -Wrap
 
 # Add computer to domain
 # $JoinUser = "$($DomainJoinDomain)\$($DomainJoinUser)"
