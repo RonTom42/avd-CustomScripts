@@ -8,18 +8,6 @@ param
 
     [Parameter(mandatory = $false)]
     [switch]$EnableVerboseMsiLogging,
-
-    [Parameter(mandatory = $true)]
-    [string]$DomainJoinDomain,
-
-    [Parameter(mandatory = $true)]
-    [string]$DomainJoinUser,
-
-    [Parameter(mandatory = $true)]
-    [string]$DomainJoinPassword,
-
-    [Parameter(mandatory = $true)]
-    [string]$OUPath
 )
 
 # Set startupType of Azure Connected Machine agent to auto (not auto delyed start)
@@ -32,18 +20,9 @@ sc.exe stop wuauserv
 
 # Download and unzip Microsoft's dsc zip
 $dsc_dir = (Get-Item .).FullName
-# $dsc_ps_path = [IO.Path]::Combine($dsc_dir, 'Configuration.ps1')
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Azure/RDS-Templates/master/ARM-wvd-templates/DSC/Configuration.zip' -outfile $dsc_dir\Configuration.zip -UseBasicParsing
 Get-ChildItem $dsc_dir\Configuration.zip | Expand-Archive -DestinationPath $dsc_dir
 
 # Install RDS Agent and register
 write-output "Installing RDS agent..."
 & $dsc_dir\Script-SetupSessionHost.ps1 -HostPoolName $HostPoolName -RegistrationInfoToken $RegistrationInfoToken -EnableVerboseMsiLogging:$true #$EnableVerboseMsiLogging 
-# Remove-Item $dsc_dir/transcript.log -Confirm:$false
-
-# Add computer to domain
-# $JoinUser = "$($DomainJoinDomain)\$($DomainJoinUser)"
-# $SecurePassword = $DomainJoinPassword | ConvertTo-SecureString -asPlainText -Force
-# $DomainJoinCredential = New-object -TypeName System.Management.Automation.PSCredential -ArgumentList ($JoinUser, $SecurePassword) 
-# Add-Computer -DomainName $DomainJoinDomain -OUPath $OUPath -Credential $DomainJoinCredential -Restart -Force
- 
