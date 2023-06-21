@@ -7,7 +7,7 @@ param
     [string]$RegistrationInfoToken,
 
     [Parameter(mandatory = $false)]
-    [switch]$EnableVerboseMsiLogging,
+    [switch]$EnableVerboseMsiLogging
 )
 
 # Set startupType of Azure Connected Machine agent to auto (not auto delyed start)
